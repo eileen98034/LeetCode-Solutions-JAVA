@@ -1,0 +1,36 @@
+/*
+Given an array of integers nums and an integer k, return the number of unique k-diff pairs in the array.
+A k-diff pair is an integer pair (nums[i], nums[j]), where the following are true:
+
+Constraints
+0 <= i, j < nums.length
+i != j
+a <= b
+b - a == k
+*/ 
+
+class Solution {
+    public int findPairs(int[] nums, int k) {
+        
+        // get out quick
+        if (nums == null || nums.length == 0 || k < 0)
+            return 0;
+        
+        Map<Integer,Integer> numMap = new HashMap<>();
+        int cnt = 0;
+        for (int num : nums)
+            numMap.put(num, numMap.getOrDefault(num,0)+1);
+        
+        for (Map.Entry<Integer,Integer> numEntry : numMap.entrySet()) {
+            if (k==0) { // find duplicates that will evaluate to zero, i,e, 1-1 or 5-5, etc.
+                if (numEntry.getValue() >= 2)
+                    cnt++;
+            } else { // find B-A = k
+                if (numMap.containsKey(numEntry.getKey()+k))
+                    cnt++;
+            }
+        }
+        
+        return cnt;
+    }
+}
