@@ -5,6 +5,7 @@ It is guaranteed that the new value does not exist in the original BST. Notice t
 the tree remains a BST after insertion. You can return any of them.
 */
 
+// iterative solution
 class Solution {
     public TreeNode insertIntoBST(TreeNode root, int val) {
         
@@ -48,3 +49,14 @@ class Solution {
             Inorder(root.right); 
         } 
     }
+}
+
+// recursive solution
+Class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if (root == null) return new TreeNode(val);
+        if (val < root.val) root.left = insertIntoBST(root.left, val);
+        else root.right = insertIntoBST(root.right, val);
+        return root;
+    }
+}
